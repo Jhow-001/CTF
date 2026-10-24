@@ -11,14 +11,14 @@ ffuf -u http://<IP_DA_VPN>/FUZZ -w /usr/share/wordlists/dirb/common.txt -mc 200
 ```
 
 ![Resultado do ffuf](images/img-001.png)
+![Aviso da aplicação](images/img-002.png)
 
 Cadastrando nosso usuário, somos redirecionados para o dashboard na área logada. Ao acessar a aba de “Stocks”, temos gráficos relacionados às ações da bolsa de valores dos EUA. Usando a funcionalidade de adicionar stock à carteira, com um ticker que já está na carteira e um número maior que zero, aparece um aviso de que a aplicação levará 2 dias para refletir na carteira.
 
-![Aviso da aplicação](images/img-002.png)
+![Requisição para Yahoo Finance](images/img-003.png)
 
 Ao interceptar a requisição, vemos que a aplicação faz uma requisição para a API do Yahoo Finance:
 
-![Requisição para Yahoo Finance](images/img-003.png)
 ![Detalhes da requisição](images/img-004.png)
 
 Como o parâmetro de URL é controlado pelo usuário, é possível realizar um ataque de SSRF. Assim, podemos passar uma URL com uma porta local no parâmetro e também buscar outras portas que estão expostas apenas internamente e que estariam rodando outras aplicações, não acessíveis por nossa máquina de ataque, mas sim pela própria aplicação.
@@ -98,3 +98,11 @@ Executamos o comando `su` para aumentar nossos privilégios e, ao passarmos essa
 Vamos até a pasta root e pegamos nossa flag!
 
 ![Flag root](images/img-014.png)
+
+---
+
+## Documentação complementar
+
+- [Aprendizados e habilidades](LEARNINGS.md)
+- [Roadmap metodológico](METHODOLOGY.md)
+- [Conclusão e retrospectiva](CONCLUSION.md)
