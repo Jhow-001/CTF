@@ -1,11 +1,21 @@
 # CTF Writeups
 
-This repository contains technical writeups documenting machines, challenges, and laboratories completed across various cybersecurity training platforms.
+This repository contains technical write-ups documenting machines, challenges, and laboratories from Capture The Flag (CTF) platforms.
 
-The purpose of this portfolio is not simply to publish solutions or disclose challenge content, but to document the methodology behind each assessment, the attack path, the tools used, the reasoning process, and the lessons learned throughout each exercise.
+The purpose of this portfolio is not simply to publish solutions or disclose challenge content, but to document the methodology, technical reasoning, and problem-solving process used throughout each engagement.
 
-Each writeup focuses on the technical approach used to identify vulnerabilities, exploit them in a controlled environment, escalate privileges when applicable, and understand the security concepts demonstrated by the challenge.
+Each write-up focuses on the technical approach used to identify vulnerabilities, analyze application behavior, validate security weaknesses, and understand their potential impact within controlled environments.
 
-This repository serves as a practical learning journal and a technical portfolio showcasing hands-on experience in Offensive Security.
+This repository serves as a practical learning journal and a technical portfolio showcasing my development in cybersecurity, penetration testing, and offensive security.
 
-___
+---
+
+## HackingClub
+
+### Stonks
+
+A technical write-up of the Stonks lab, documenting reconnaissance, web application enumeration, the identification of Server-Side Request Forgery (SSRF) and command injection, initial access, and privilege escalation.
+
+[View the Stonks write-up](hackingclub/stonks/README.md)
+
+---
