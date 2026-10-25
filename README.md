@@ -10,7 +10,7 @@ This repository serves as a practical learning journal and a technical portfolio
 
 ---
 
-## HackingClub
+## 0578b19a3360292c22bede3cf6a79272
 
 ### Stonks
 
