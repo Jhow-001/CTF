@@ -16,6 +16,6 @@ This repository serves as a practical learning journal and a technical portfolio
 
 A technical write-up of the Stonks lab, documenting reconnaissance, web application enumeration, the identification of Server-Side Request Forgery (SSRF) and command injection, initial access, and privilege escalation.
 
-[View the Stonks write-up](hackingclub/stonks/README.md)
+[View the Stonks write-up](0578b19a3360292c22bede3cf6a79272/stonks/README.md)
 
 ---
