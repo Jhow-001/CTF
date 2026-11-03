@@ -35,15 +35,6 @@ cat user.txt
 
 Verificando `notes.txt` do `sysadmin`, encontramos as tarefas pendentes e a informação importante sobre o backup automático:
 
-```
-TAREFAS:
-- [x] Configurar backup automático
-- [ ] Revisar permissões dos scripts em /opt/scripts
-- [ ] Verificar se o cron está funcionando (checar /var/log/backup.log)
-- [ ] Remover credenciais hardcoded
-
-IMPORTANTE: O backup roda automaticamente. Não modificar sem avisar o time.
-```
 
 ![notes.txt](images/img-003.png)
 
