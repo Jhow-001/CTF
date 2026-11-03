@@ -22,6 +22,6 @@ A technical write-up of the Stonks lab, documenting reconnaissance, web applicat
 
 A technical write-up of the Privesc Linux - 2 lab, documenting initial access via SSH, enumeration of hidden files, discovery of hardcoded credentials, lateral movement to the sysadmin user, and privilege escalation through abuse of a cron-executed backup script.
 
-[View the Privesc Linux - 2 write-up](0578b19a3360292c22bede3cf6a79272/Privesc_Linux_-_2/README.md)
+[View the Privesc Linux - 2 write-up](0578b19a3360292c22bede3cf6a79272/Privesc_Linux_2/README.md)
 
 ---
